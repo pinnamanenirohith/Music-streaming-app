@@ -1,0 +1,62 @@
+name: Build and Test Music Streaming App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: musicdb
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    strategy:
+      matrix:
+        java-version: [17]
+
+    steps:
+      # Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+
+      # Build backend
+      - name: Build backend
+        working-directory: musicstreaming-backend/musicstreaming
+        run: mvn clean install
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Install frontend dependencies
+      - name: Install frontend dependencies
+        working-directory: music-streaming-frontend
+        run: npm install
+
+      # Build frontend
+      - name: Build frontend
+        working-directory: music-streaming-frontend
+        run: npm run build
