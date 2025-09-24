@@ -1,0 +1,13 @@
+# Node modules and frontend build
+music-streaming-frontend/node_modules/
+music-streaming-frontend/build/
+
+# Backend build (if using Maven/Gradle)
+musicstreaming-backend/target/
+
+# OS and IDE files
+.DS_Store
+*.log
+
+# Optional: Environment variables
+.env
