@@ -1,0 +1,25 @@
+.song-list {
+  background-color: #f0f4f8;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.song-list h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.song-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.song-list li {
+  background-color: #ffffff;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
